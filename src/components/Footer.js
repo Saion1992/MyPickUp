@@ -100,7 +100,7 @@ const Footer = () => {
                     }}
                     onClick={() => scrollToSection("number")}
                   >
-                    8867712288
+                
                   </Link>
                 </li>
               </ul>
