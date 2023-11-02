@@ -248,7 +248,7 @@
 
 
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Modal, Form, Col, Row } from "react-bootstrap";
 import "./myform.css";
 
@@ -272,6 +272,47 @@ function SchoolForm() {
 
   const [showModal, setShowModal] = useState(false);
   const [activeOption, setActiveOption] = useState("yes");
+
+  const autocompleteService = new window.google.maps.places.AutocompleteService();
+
+  const [pickupSuggestions, setPickupSuggestions] = useState([]);
+  const [dropSuggestions, setDropSuggestions] = useState([]);
+
+  const fetchAutocompleteSuggestions = (query, setSuggestions) => {
+    if (query) {
+      autocompleteService.getPlacePredictions(
+        { input: query },
+        (results, status) => {
+          if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+            setSuggestions(results);
+          }
+        }
+      );
+    } else {
+      setSuggestions([]);
+    }
+  };
+
+  const handleLocationSelect = (selectedLocation, field) => {
+    setFormData({ ...formData, [field]: selectedLocation });
+    if (field === "pickupLocation") {
+      setPickupSuggestions([]);
+    } else if (field === "dropLocation") {
+      setDropSuggestions([]);
+    }
+  };
+
+  const handlePickupChange = (e) => {
+    const query = e.target.value;
+    setFormData({ ...formData, pickupLocation: query });
+    fetchAutocompleteSuggestions(query, setPickupSuggestions);
+  };
+
+  const handleDropChange = (e) => {
+    const query = e.target.value;
+    setFormData({ ...formData, dropLocation: query });
+    fetchAutocompleteSuggestions(query, setDropSuggestions);
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -364,9 +405,20 @@ function SchoolForm() {
                 type="text"
                 name="pickupLocation"
                 value={formData.pickupLocation}
-                onChange={handleInputChange}
+                onChange={handlePickupChange}
                 required
               />
+               <ul className="autocomplete-list">
+                {pickupSuggestions.map((suggestion) => (
+                  <li
+                    key={suggestion.place_id}
+                    className="autocomplete-item"
+                    onClick={() => handleLocationSelect(suggestion.description, "pickupLocation")}
+                  >
+                    {suggestion.description}
+                  </li>
+                ))}
+              </ul>
             </Form.Group>
           </Col>
           <Col>
@@ -377,9 +429,20 @@ function SchoolForm() {
                 type="text"
                 name="dropLocation"
                 value={formData.dropLocation}
-                onChange={handleInputChange}
+                onChange={handleDropChange}
                 required
               />
+              <ul className="autocomplete-list">
+                {dropSuggestions.map((suggestion) => (
+                  <li
+                    key={suggestion.place_id}
+                    className="autocomplete-item"
+                    onClick={() => handleLocationSelect(suggestion.description, "dropLocation")}
+                  >
+                    {suggestion.description}
+                  </li>
+                ))}
+              </ul>
             </Form.Group>
           </Col>
         </Row>
