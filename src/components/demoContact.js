@@ -86,7 +86,9 @@ function OfficeForm0() {
   };
 
   const handleToggle = (value) => {
+  
     setActiveOption(value);
+
   };
 
   const handleShow = () => {
@@ -118,7 +120,7 @@ function OfficeForm0() {
       };
       // Use the submitFormData function to make the API request
       submitOfficeFormData(requestData);
-      handleShow(); // Show the modal on form submission
+     // handleShow(); // Show the modal on form submission
     } catch (error) {
       // Handle errors, e.g., show an error message to the user
       console.error('Error submitting form:', error);
@@ -264,6 +266,7 @@ function OfficeForm0() {
                 value={formData.return_time}
                 onChange={handleInputChange}
                 required
+                disabled={activeOption === "no"}
               />
             </Form.Group>
           </Col>
@@ -303,7 +306,8 @@ function OfficeForm0() {
           className="p-2 my-2 "
           style={{ backgroundColor: "#084aa6" }}
           type="submit"
-        >
+          onClick={handleShow}
+   >
           Submit
         </Button>
       </Form>
