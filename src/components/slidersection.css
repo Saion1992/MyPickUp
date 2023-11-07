@@ -14,7 +14,14 @@
   height: 500px; /* Set the desired height for large screens */
   background-color: #e5e5e5;
 }
+.heading{
 
+}
+@media (max-width: 767px) {
+  .heading {
+   margin-top: 20px;/* Adjust the height for small screens, or remove the height property to let it adjust to content */
+  }
+}
 /* Adjust the height for small screens */
 @media (max-width: 767px) {
   .custom-div {

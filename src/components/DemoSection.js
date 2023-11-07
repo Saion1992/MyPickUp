@@ -29,7 +29,7 @@ const CarouselComponent = () => {
                     minHeight: "30vh", // Adjust the minimum height as needed
                   }}
                 >
-                  <h2>Secure Your Commute</h2>
+                  <h2 className="heading">Secure Your Commute</h2>
                   <p>
                     Book your rides in advance and save yourself from waiting
                     endlessly for you rides. Our drivers always reach before
@@ -68,7 +68,7 @@ const CarouselComponent = () => {
                     minHeight: "30vh", // Adjust the minimum height as needed
                   }}
                 >
-                  <h2>Share. Save. Repeat.</h2>
+                  <h2 className="heading">Share. Save. Repeat.</h2>
                   <p>
                     All our rides are shared and gender-segregated ensuring
                     maximum sense of security while commuting.By sharing,you
@@ -105,7 +105,7 @@ const CarouselComponent = () => {
                     minHeight: "30vh", // Adjust the minimum height as needed
                   }}
                 >
-                  <h2>Same driver daily</h2>
+                  <h2 className="heading">Same driver daily</h2>
                   <p>
                     We try our best to allocate the same driver daily for your
                     convenience and safety. It is easy for school kids to
@@ -144,7 +144,7 @@ const CarouselComponent = () => {
                     minHeight: "30vh", // Adjust the minimum height as needed
                   }}
                 >
-                  <h2> GPS tracking for Parents</h2>
+                  <h2 className="heading"> GPS tracking for Parents</h2>
                   <p>
                     To all the parents anxious about their kids commute to and
                     fro from school. All rides are tracked via GPS and a unique
