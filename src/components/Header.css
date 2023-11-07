@@ -23,3 +23,12 @@
 .navbar-toggler{
     width: 20%;
 }
+.nav-logo{
+    height: 60px;
+
+}
+@media (max-width: 768px) {
+    .nav-logo{
+        height: 50px;
+    }
+  }

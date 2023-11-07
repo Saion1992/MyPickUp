@@ -66,3 +66,12 @@
 color: #084aa6;
 
 }
+ .school-icon{
+  margin-top: 2px;
+ }
+ @media (max-width: 768px) {
+  .school-icon {
+    font-size: 18px;
+    margin-top: 20px; /* Add margin to move the icon down */
+  }
+}

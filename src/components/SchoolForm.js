@@ -306,7 +306,7 @@ function SchoolForm() {
           <Col>
             {" "}
             <Form.Group as={Form.Col}>
-              <Form.Label>SubscriptionStartDate:</Form.Label>
+              <Form.Label>Subscription Start Date:</Form.Label>
               <Form.Control
                 type="date"
                 name="date"
