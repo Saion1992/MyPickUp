@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Button, Modal, Form, Col, Row } from "react-bootstrap";
+import {submitOfficeFormData} from './Api';
 import "./myform.css";
 
 function OfficeForm0() {
   const [formData, setFormData] = useState({
     name: "",
-    mobnumber: "",
+    mobile: "",
     gender: "Male",
     days: {
       Sunday: false,
@@ -16,12 +17,13 @@ function OfficeForm0() {
       Friday: false,
       Saturday: false,
     },
-    pickupLocation: "",
-    dropLocation: "",
+    pickup_location: "",
+    drop_location: "",
   });
 
   const [showModal, setShowModal] = useState(false);
   const [activeOption, setActiveOption] = useState("yes");
+  const [submitted, setSubmitted] = useState(false);
 
   const autocompleteService = new window.google.maps.places.AutocompleteService();
 
@@ -45,9 +47,9 @@ function OfficeForm0() {
 
   const handleLocationSelect = (selectedLocation, field) => {
     setFormData({ ...formData, [field]: selectedLocation });
-    if (field === "pickupLocation") {
+    if (field === "pickup_location") {
       setPickupSuggestions([]);
-    } else if (field === "dropLocation") {
+    } else if (field === "drop_location") {
       setDropSuggestions([]);
     }
   };
@@ -73,13 +75,13 @@ function OfficeForm0() {
 
   const handlePickupChange = (e) => {
     const query = e.target.value;
-    setFormData({ ...formData, pickupLocation: query });
+    setFormData({ ...formData, pickup_location: query });
     fetchAutocompleteSuggestions(query, setPickupSuggestions);
   };
 
   const handleDropChange = (e) => {
     const query = e.target.value;
-    setFormData({ ...formData, dropLocation: query });
+    setFormData({ ...formData, drop_location: query });
     fetchAutocompleteSuggestions(query, setDropSuggestions);
   };
 
@@ -97,7 +99,32 @@ function OfficeForm0() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleShow(); // Show the modal on form submission
+    try {
+      if (submitted) {
+        // Display a different message if the form has already been submitted
+        setSubmittedMessage("Your response is already recorded. Our customer support team will reach out to you within 6 business hours.");
+      }
+      // Define the form data to be sent to the server
+      const requestData = {
+        name: formData.name,
+        mobile: formData.mobile,
+        gender: formData.gender,
+        selected_days: Object.keys(formData.days).filter((day) => formData.days[day]),
+        pickup_location: formData.pickup_location,
+        drop_location: formData.drop_location,
+        pickup_time: formData.pickup_time,
+        return_time: formData.return_time,
+        want_return: activeOption === "yes",
+      };
+      // Use the submitFormData function to make the API request
+      submitOfficeFormData(requestData);
+      handleShow(); // Show the modal on form submission
+    } catch (error) {
+      // Handle errors, e.g., show an error message to the user
+      console.error('Error submitting form:', error);
+      // You can set an error state and display an error message to the user
+      
+    }
   };
 
   return (
@@ -123,8 +150,8 @@ function OfficeForm0() {
               <Form.Label>Mob:</Form.Label>
               <Form.Control
                 type="tel"
-                name="mobnumber"
-                value={formData.mobnumber}
+                name="mobile"
+                value={formData.mobile}
                 onChange={handleInputChange}
                 required
               />
@@ -154,8 +181,8 @@ function OfficeForm0() {
               <Form.Label>Pickup Location:</Form.Label>
               <Form.Control
                 type="text"
-                name="pickupLocation"
-                value={formData.pickupLocation}
+                name="pickup_location"
+                value={formData.pickup_location}
                 onChange={handlePickupChange}
                 required
               />
@@ -164,7 +191,7 @@ function OfficeForm0() {
                   <li
                     key={suggestion.place_id}
                     className="autocomplete-item"
-                    onClick={() => handleLocationSelect(suggestion.description, "pickupLocation")}
+                    onClick={() => handleLocationSelect(suggestion.description, "pickup_location")}
                   >
                     {suggestion.description}
                   </li>
@@ -177,8 +204,8 @@ function OfficeForm0() {
               <Form.Label>Drop Location:</Form.Label>
               <Form.Control
                 type="text"
-                name="dropLocation"
-                value={formData.dropLocation}
+                name="drop_location"
+                value={formData.drop_location}
                 onChange={handleDropChange}
                 required
               />
@@ -187,7 +214,7 @@ function OfficeForm0() {
                   <li
                     key={suggestion.place_id}
                     className="autocomplete-item"
-                    onClick={() => handleLocationSelect(suggestion.description, "dropLocation")}
+                    onClick={() => handleLocationSelect(suggestion.description, "drop_location")}
                   >
                     {suggestion.description}
                   </li>
@@ -220,8 +247,8 @@ function OfficeForm0() {
               <Form.Label>Pickup Time:</Form.Label>
               <Form.Control
                 type="time"
-                name="pickupTime"
-                value={formData.pickupTime}
+                name="pickup_time"
+                value={formData.pickup_time}
                 onChange={handleInputChange}
                 required
               />
@@ -233,8 +260,8 @@ function OfficeForm0() {
               <Form.Label>Return Time:</Form.Label>
               <Form.Control
                 type="time"
-                name="returnTime"
-                value={formData.returnTime}
+                name="return_time"
+                value={formData.return_time}
                 onChange={handleInputChange}
                 required
               />
