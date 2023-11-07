@@ -245,7 +245,7 @@ const ContactForm = () => {
             borderBottomRightRadius: "10px",
           }}
         >
-          <FaSchool /> &nbsp; School/Extra Classes
+          <FaSchool className="school-icon" /> &nbsp; School/Extra Classes
         </Button>
       </div>
       {showForm && (
@@ -259,7 +259,7 @@ const ContactForm = () => {
 
           {activeButton === "school" && (
             <>
-               <p style={{color:'#666'}}>Please note that Saturday is not included in School subscription plans. Services will be provided for all days Monday to Friday for the entire month.</p>
+               <p style={{color:'#666'}}>Please note that Saturday is not included in School subscription plans. Services will be provided from Monday to Friday for the entire month.</p>
               <SchoolForm />
 
             </>

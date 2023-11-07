@@ -57,7 +57,7 @@ function Header() {
           <Container fluid className="p-0">
             <Navbar.Brand href="#">
               {" "}
-              <img src="./logo.jpg" alt="" style={{ height: "60px" }} />{" "}
+              <img className="nav-logo" src="./logo.jpg" alt=""  />{" "}
             </Navbar.Brand>
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
             <Navbar.Offcanvas

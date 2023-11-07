@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faPhone } from "@fortawesome/free-solid-svg-icons";
-
+import "./Header.css"
 import {
   faFacebook,
   faTwitter,
@@ -52,7 +52,7 @@ const Footer = () => {
                 fluid
                 src="./logodark.png"
                 alt="Logo"
-                style={{ height: "80px" }}
+           className="nav-logo"
               />
             </Col>
             {/* Quick links */}
