@@ -44,30 +44,10 @@ function MultiCarousel() {
                   <Rating value={4.5} />
                   <p style={{ color: "#084aa6" }}>AVP @ Reliance Jio</p>
 
-                  <p style={{ fontStyle: "italic" }}>
-                    <span
-                      style={{
-                        fontSize: "35px",
-                        fontWeight: "bold",
-                        fontStyle: "italic",
-                      }}
-                    >
-                      "
-                    </span>{" "}
-                    Mypickup has made my travel from office to home a hassle
-                    free affair. Earlier i used to struggle to find a cab back
-                    home on time - This awesome service provides well maintained
-                    E ricks on time with drivers who are courteous.{" "}
-                    <span
-                      style={{
-                        fontSize: "35px",
-                        fontWeight: "bold",
-                        fontStyle: "italic",
-                      }}
-                    >
-                      "
-                    </span>
-                  </p>
+                  <p className="review" style={{ fontStyle: "italic"}}>
+  <span style={{fontWeight:'bold'}}>"</span> 
+  Mypickup has made my travel from office to home a hassle free affair. Earlier i used to struggle to find a cab back home on time - This awesome service provides well maintained E ricks on time with drivers who are courteous.<span style={{fontWeight:'bold'}}>"</span>
+</p>
                 </Col>
               </Row>
             </Container>
@@ -98,30 +78,13 @@ function MultiCarousel() {
                   <p className="" style={{ color: "#084aa6" }}>
                     Program Manager @ Zeta, India
                   </p>
-                  <p style={{ fontStyle: "italic" }}>
-                    <span
-                      style={{
-                        fontSize: "35px",
-                        fontWeight: "bold",
-                        fontStyle: "italic",
-                      }}
-                    >
-                      "
-                    </span>{" "}
-                    I can vouch for MyPickup. Been a customer for nearly 2
+                  <p style={{ fontStyle: "italic"}}>
+  <span style={{fontWeight:'bold'}}>"</span> I can vouch for MyPickup. Been a customer for nearly 2
                     months now! Sharing with co-passengers saves a lot of money
                     and hassle. I suggest we all use it to improve Bangalore
-                    traffic conditions.{" "}
-                    <span
-                      style={{
-                        fontSize: "35px",
-                        fontWeight: "bold",
-                        fontStyle: "italic",
-                      }}
-                    >
-                      "
-                    </span>
-                  </p>
+                    traffic conditions.<span style={{fontWeight:'bold'}}>"</span>
+</p>
+    
                 </Col>
               </Row>
             </Container>
@@ -150,29 +113,9 @@ function MultiCarousel() {
                   <Rating value={4.5} />
 
                   <p style={{ color: "#084aa6" }}>Manager @ Ola Electric </p>
-                  <p style={{ fontStyle: "italic" }}>
-                    <span
-                      style={{
-                        fontSize: "35px",
-                        fontWeight: "bold",
-                        fontStyle: "italic",
-                      }}
-                    >
-                      "
-                    </span>{" "}
-                    MyPickup helps me save a lot of booking time. All autos are
-                    electric which is a feel-good factor. Drivers are courteous
-                    and rides are affordable. No surge-pricing like other apps.{" "}
-                    <span
-                      style={{
-                        fontSize: "35px",
-                        fontWeight: "bold",
-                        fontStyle: "italic",
-                      }}
-                    >
-                      "
-                    </span>
-                  </p>
+                  <p style={{ fontStyle: "italic"}}>
+  <span style={{fontWeight:'bold'}}>"</span> MyPickup helps me save a lot of booking time. All autos are electric which is a feel-good factor. Drivers are courteous and rides are affordable. No surge-pricing like other apps. <span style={{fontWeight:'bold'}}>"</span>
+</p>
                 </Col>
               </Row>
             </Container>
