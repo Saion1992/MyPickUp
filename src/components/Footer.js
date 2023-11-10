@@ -41,7 +41,7 @@ const Footer = () => {
     });
   }
   return (
-    <Element name="footer">
+    <Element name="footer" >
       {" "}
       <Container fluid className="footercss p-5 section">
         <main>
@@ -60,15 +60,9 @@ const Footer = () => {
               <ul className="quick-links" style={{ listStyle: "none" }}>
                 <li>
                   {" "}
-                  <Link
+                  <Link className="faq"
                     to="faq"
-                    style={{
-                      fontSize: "18px",
-                      fontWeight: "500",
-                      color: "white",
-                      cursor: "pointer",
-                      padding: "10px",
-                    }}
+                    
                     onClick={() => scrollToSection("faq")}
                   >
                     FAQ
@@ -78,19 +72,15 @@ const Footer = () => {
                   {" "}
                   <Link
                     to="features"
-                    style={{
-                      fontSize: "18px",
-                      fontWeight: "500",
-                      color: "white",
-                      cursor: "pointer",
-                      padding: "10px",
-                    }}
+                    className="service"
+                    
                     onClick={() => scrollToSection("features")}
                   >
                     Our Services
                   </Link>
                   <Link
                     to="number"
+                  
                     style={{
                       fontSize: "18px",
                       fontWeight: "500",
@@ -126,13 +116,7 @@ const Footer = () => {
                 <li>
                   {" "}
                   <Link
-                    style={{
-                      fontSize: "18px",
-                      fontWeight: "500",
-                      color: "white",
-                      cursor: "pointer",
-                      padding: "10px",
-                    }}
+                    className="service"
                     // onClick={() => scrollToSection("faq")}
                     onClick={handleSubmit}
                   >
@@ -146,13 +130,7 @@ const Footer = () => {
                 <li>
                   <Link
                     to="Testimonials"
-                    style={{
-                      fontSize: "18px",
-                      fontWeight: "500",
-                      color: "white",
-                      cursor: "pointer",
-                      padding: "10px",
-                    }}
+                    className="service"
                     onClick={() => scrollToSection("Testimonials")}
                   >
                     Testimonials

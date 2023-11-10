@@ -27,8 +27,37 @@
     height: 60px;
 
 }
+.faq{
+    font-size: 18px;
+    font-weight: 500;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    text-decoration: none;
+}
+.service{
+    font-size: 18px;
+    font-weight: 500;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    text-decoration: none;
+}
 @media (max-width: 768px) {
     .nav-logo{
         height: 50px;
+        margin-left: 110px;
+    }
+  }
+  @media (max-width: 768px) {
+    .faq{
+ 
+        margin-left: 90px;
+    }
+  }
+  @media (max-width: 768px) {
+    .service{
+ 
+        margin-left: 90px;
     }
   }
