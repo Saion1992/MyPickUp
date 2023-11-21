@@ -180,7 +180,8 @@ function OfficeForm0() {
         <Row className="p-3 ">
           <Col>
             <Form.Group>
-              <Form.Label>Pickup Location:</Form.Label>
+              <Form.Label>Pickup Location:
+              </Form.Label>
               <Form.Control
                 type="text"
                 name="pickup_location"
@@ -225,6 +226,11 @@ function OfficeForm0() {
             </Form.Group>
           </Col>
         </Row>
+        <Row >
+          <p className="fs-7" style={{ fontWeight: "200" ,color:"grey"}}>
+            <center>(Please mention exact addresses. For e.g. Society Name, Nearest location name, IT park name, etc.)</center>
+          </p>
+        </Row>
         <Row className="p-3 ">
           {" "}
           <Form.Group>
@@ -243,6 +249,7 @@ function OfficeForm0() {
             </div>
           </Form.Group>
         </Row>
+
         <Row className="p-3 ">
           <Col>
             <Form.Group>
