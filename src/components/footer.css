@@ -3,3 +3,41 @@
     color: white;
     justify-content: center;
 }
+@media (max-width: 768px) {
+    .nav-logo{
+        height: 50px;
+        /*margin-left: 95px;*/
+    }
+}
+@media (max-width:768px) {
+    .quick-links {
+        display: -webkit-inline-box;
+    }
+    .social-links {
+    }
+
+    .col-12{
+        text-align: center;
+
+    }
+
+    .quick-links ul {
+        padding-bottom: 0.5rem;
+    }
+
+    .quick-links li:last-child {
+        margin-right: 0;
+    }
+}
+@media (max-width: 768px) {
+    .faq{
+
+        margin-left: 0px;
+    }
+}
+@media (max-width: 768px) {
+    .service{
+
+        margin-left: 0px;
+    }
+}
