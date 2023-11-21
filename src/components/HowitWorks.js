@@ -12,9 +12,14 @@ const HowItWorksComponent = () => {
             <h2 className="fw-bold" style={{ color: "#084aa6" }}>
               How it works?
             </h2>
+
             <p className="fs-5" style={{ fontWeight: "500" }}>
               No Booking. No cancellations.{" "}
               <span style={{ color: "green" }}>No Pollution.</span>
+            </p>
+
+            <p className="fs-5" style={{ fontWeight: "200" ,color:"grey"}}>
+              Dear Customers, Please note that our service is available only in Bangalore, India as of now.
             </p>
           </Col>
         </Row>

@@ -89,7 +89,11 @@ const handleShow = () => setShow(true);
     <div>
       <Form onSubmit={handleSubmit}>
         <Form.Group>
-          <Form.Label>Email address</Form.Label>
+          <Form.Label>Email address
+            <p style={{ fontWeight: "200" ,color:"black"}}>
+              (Please mention only official IDs)
+            </p>
+          </Form.Label>
           <Form.Control
             type="email"
             placeholder="Enter email"
