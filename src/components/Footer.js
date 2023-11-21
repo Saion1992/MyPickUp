@@ -47,7 +47,7 @@ const Footer = () => {
         <main>
           <Row>
             {/* Social links */}
-            <Col xs={3} md={3}>
+            <Col xs={12} md={3}>
               <img
                 fluid
                 src="./logodark.png"
@@ -55,6 +55,7 @@ const Footer = () => {
            className="nav-logo"
               />
             </Col>
+
             {/* Quick links */}
             <Col xs={12} md={3}>
               <ul className="quick-links" style={{ listStyle: "none" }}>
@@ -62,10 +63,13 @@ const Footer = () => {
                   {" "}
                   <Link className="faq"
                     to="faq"
-                    
-                    onClick={() => scrollToSection("faq")}
+
+                    onClick={() => {
+                        window.location.href = 'https://docs.google.com/document/d/1jnT5vMYT4p5E-lPqmDuCTTMKCaz8DaUgrB-gaucsKMQ/edit#heading=h.2m5g35pq7759';
+                        return null;
+                    }}
                   >
-                    FAQ
+                    Terms & Conditions
                   </Link>
                 </li>
                 <li>
@@ -197,8 +201,7 @@ const Footer = () => {
                       fontWeight: "500",
                       color: "white",
                       cursor: "pointer",
-                      padding: "10px",
-                      margin: "10px"
+
                     }}
                     onClick={() => scrollToSection("number")}
                   >
@@ -216,7 +219,7 @@ const Footer = () => {
   rel="noopener noreferrer"
   style={{
     fontSize: "20px",
-    padding: "30px",
+    padding: "5px",
     color: "white",
     textDecoration: "none", // Add this line to remove the underline
   }}
