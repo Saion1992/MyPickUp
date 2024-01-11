@@ -65,7 +65,7 @@ const Footer = () => {
                     to="faq"
 
                     onClick={() => {
-                        window.location.href = 'https://docs.google.com/document/d/1jnT5vMYT4p5E-lPqmDuCTTMKCaz8DaUgrB-gaucsKMQ/edit#heading=h.2m5g35pq7759';
+                        window.location.href = 'https://docs.google.com/document/d/1jnT5vMYT4p5E-lPqmDuCTTMKCaz8DaUgrB-gaucsKMQ/edit#heading=h.xa5pzt4ki4ck';
                         return null;
                     }}
                   >
