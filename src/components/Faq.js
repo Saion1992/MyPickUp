@@ -16,7 +16,7 @@ function FAQ() {
    {
      id: 2,
      ques: "What are the charges?",
-     ans: "We charge 14 rs per km  per seat - including everything (Advance booking charges, GST, Platform fee, Convenience charges etc)",
+     ans: "Per km charges depend on no. of km in your trip. The pricing is differential to ensure that it compensates for the number of km a driver travels to reach your pickup point. This also includes reservation charges & GST. Weekly or monthly subscription price is then calculated on the basis no. of trips you plan for the week. Please note that we also offer a co-passenger referral discount to both the passengers of 10% - 20% depending on the discounts prevailing at that season.Prices for on-demand rides are at 16Rs/km for existing customers.",
    },
    {
      id: 3,
