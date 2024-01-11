@@ -108,9 +108,25 @@ function FAQ() {
                       </p>
                     </Accordion.Header>
                     <Accordion.Body className="p-4 text-start">
-                      We charge 14 rs per km per seat - including everything
-                      Advance booking charges, GST, Platform fee, Convenience
-                      charges etc
+                      Per km charges depend on no. of km in your trip. The pricing is differential to ensure that it
+                      compensates for the number of km a driver travels to reach your pickup point. This also includes
+                      reservation charges & GST. Weekly or monthly subscription price is then calculated on the basis
+                      no. of trips you plan for the week.
+
+                      Please note that we also offer a co-passenger referral discount to both the passengers of 10% -
+                      20% depending on the discounts prevailing at that season.
+
+                      Prices for on-demand rides are at 16Rs/km for existing customers.
+                      <div
+                          className="my-1"
+                          style={{width: "100%", textAlign: "center"}}
+                      >
+                        <img
+                            src="kmpr_chart.png"
+                            alt=""
+                            style={{maxWidth: "100%"}}
+                        />
+                      </div>
                     </Accordion.Body>
                   </Accordion.Item>
                 </Accordion>
@@ -173,9 +189,7 @@ function FAQ() {
                       = 3 X 5 X 2 X 14 <br />
                       = Rs 420 per week. <br /> <br />
                       <b style={{ color: "blue" }}>School:</b> <br />
-                      We provide only monthly packages for school teachers &
-                      students. The rate is at 11Rs/km. Please refer to the
-                      below table for exact charges.
+                      Please refer to the School TnC to refer to charges for school customers. We allow only monthly subscriptions for school customers.
                       <div
                         className="my-1"
                         style={{ width: "100%", textAlign: "center" }}
@@ -413,6 +427,37 @@ function FAQ() {
                     </Accordion.Body>
                   </Accordion.Item>
                 </Accordion>
+                <Accordion
+                    defaultActiveKey={["0"]}
+                    alwaysOpen
+                    className="my-3 "
+                    data-aos="fade-up"
+                    data-aos-duration="1000"
+                >
+                <Accordion.Item className="p-2 shadow ">
+                  <Accordion.Header
+                      className="FaqHeader"
+                      style={{ fontSize: "33px" }}
+                  >
+                    <p style={{ fontWeight: "bold" }}>
+                      {" "}
+                      We also offer Auto rides on an hourly rental basis. Please check out prices for the same. These rides need to be booked via whatsapp.{" "}
+                    </p>
+                  </Accordion.Header>
+                  <Accordion.Body className="p-4 text-start">
+                    <div
+                        className="my-1"
+                        style={{width: "100%", textAlign: "center"}}
+                    >
+                      <img
+                          src="rental_tc.png"
+                          alt=""
+                          style={{maxWidth: "100%"}}
+                      />
+                    </div>
+                  </Accordion.Body>
+                </Accordion.Item>
+              </Accordion>
                 {/* ---------------------------------- */}
               </div>
             </div>
