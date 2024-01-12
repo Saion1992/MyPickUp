@@ -186,8 +186,8 @@ function FAQ() {
                       <b style={{ color: "blue" }}>Office </b> <br />
                       = No. of days per week X No. of Km per trip X SingleWay
                       (1)/Both way(2) X 14Rs/km <br />
-                      = 3 X 5 X 2 X 14 <br />
-                      = Rs 420 per week. <br /> <br />
+                      = 3 X 5 X 2 X 15.4Rs/km <br />
+                      = Rs 462 per week <br /> <br />
                       <b style={{ color: "blue" }}>School:</b> <br />
                       Please refer to the School TnC to refer to charges for school customers. We allow only monthly subscriptions for school customers.
                       <div
@@ -441,10 +441,11 @@ function FAQ() {
                   >
                     <p style={{ fontWeight: "bold" }}>
                       {" "}
-                      We also offer Auto rides on an hourly rental basis. Please check out prices for the same. These rides need to be booked via whatsapp.{" "}
+                      Do you have any hourly rental or daily rental auto plan? What are the prices?{" "}
                     </p>
                   </Accordion.Header>
                   <Accordion.Body className="p-4 text-start">
+                    Yes. We do take hourly rental requests. As of now you can book the hourly rentals only by sending us a whatsapp message.
                     <div
                         className="my-1"
                         style={{width: "100%", textAlign: "center"}}
