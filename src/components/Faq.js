@@ -181,9 +181,10 @@ function FAQ() {
                       <h6>Weekly Subscription Price Calculation:</h6>
                       <b style={{ color: "blue" }}>Office </b> <br />
                       = No. of days per week X No. of Km per trip X SingleWay
-                      (1)/Both way(2) X 14Rs/km <br />
-                      = 3 X 5 X 2 X 15.4Rs/km <br />
-                      = Rs 462 per week <br /> <br />
+                      (1)/Both way(2) X 16Rs/km <br />
+                      = 3 X 5 X 2 X 16Rs/km <br />
+                      = Rs 480 per week <br /> <br />
+                      If you refer a co-passenger & they convert to a regular subscriber then the discount of 10% will apply over and above your overall amount for both the passengers <br />
                       <b style={{ color: "blue" }}>School:</b> <br />
                       Please refer to the School TnC to refer to charges for school customers. We allow only monthly subscriptions for school customers.
                       <div
