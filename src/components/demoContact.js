@@ -128,6 +128,65 @@ function OfficeForm0() {
       
     }
   };
+  let handleNewPickupChange = (e) => {
+    const query = e.target.value;
+    setFormData({ ...formData, pickup_location: query });
+    const url = `https://api.tomtom.com/search/2/search/${query}.json?countrySet=IN&extendedPostalCodesFor=Addr%2CGeo%2CPAD%2CPOI%2CStr%2CXStr&minFuzzyLevel=1&maxFuzzyLevel=2&idxSet=Addr%2CGeo%2CPAD%2CPOI%2CStr%2CXStr&view=IN&relatedPois=off&key=LAXUKuTXwnsgGanpfAbGieVR29oAHvvR`;
+
+    fetch(url)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          // Set the pickupSuggestions state with the results from the API response
+          const streetNames = data.results.map(result => {
+            console.log(result.address.freeformAddress);
+            if (result.poi && result.poi.name){
+              console.log('poi found')
+              return (result.poi.name + ", " + result.address.freeformAddress)
+            }
+          else {
+              console.log('poi not found')
+              return result.address.freeformAddress;
+            }
+          });
+          // console.log(streetNames);
+          setPickupSuggestions(streetNames);
+        })
+        .catch(error => {
+          console.error('There has been a problem with your fetch operation:', error);
+        });
+  }
+  let handleNewDropChange = (e) => {
+    const query = e.target.value;
+    setFormData({ ...formData, drop_location: query });
+    const url = `https://api.tomtom.com/search/2/search/${query}.json?countrySet=IN&extendedPostalCodesFor=Addr%2CGeo%2CPAD%2CPOI%2CStr%2CXStr&minFuzzyLevel=1&maxFuzzyLevel=2&idxSet=Addr%2CGeo%2CPAD%2CPOI%2CStr%2CXStr&view=IN&relatedPois=off&key=LAXUKuTXwnsgGanpfAbGieVR29oAHvvR`;
+
+    fetch(url)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          const streetNames = data.results.map(result => {
+            if (result.poi && result.poi.name){
+              return (result.poi.name + ", " + result.address.freeformAddress)
+            }
+            else {
+              return result.address.freeformAddress;
+            }
+          });
+          setDropSuggestions(streetNames);
+        })
+        .catch(error => {
+          console.error('There has been a problem with your fetch operation:', error);
+        });
+  }
 
   return (
     <div className="form-container">
@@ -183,21 +242,21 @@ function OfficeForm0() {
               <Form.Label>Pickup Location:
               </Form.Label>
               <Form.Control
-                type="text"
-                name="pickup_location"
-                value={formData.pickup_location}
-                onChange={handlePickupChange}
-                required
+                  type="text"
+                  name="pickup_location"
+                  value={formData.pickup_location}
+                  onChange={handleNewPickupChange}
+                  required
               />
               <ul className="autocomplete-list">
-                {pickupSuggestions.map((suggestion) => (
-                  <li
-                    key={suggestion.place_id}
-                    className="autocomplete-item"
-                    onClick={() => handleLocationSelect(suggestion.description, "pickup_location")}
-                  >
-                    {suggestion.description}
-                  </li>
+                {pickupSuggestions.map((suggestion, index) => (
+                    <li
+                        key={index}
+                        className="autocomplete-item"
+                        onClick={() => handleLocationSelect(suggestion, "pickup_location")}
+                    >
+                      {suggestion}
+                    </li>
                 ))}
               </ul>
             </Form.Group>
@@ -206,20 +265,20 @@ function OfficeForm0() {
             <Form.Group>
               <Form.Label>Drop Location:</Form.Label>
               <Form.Control
-                type="text"
-                name="drop_location"
-                value={formData.drop_location}
-                onChange={handleDropChange}
-                required
+                  type="text"
+                  name="drop_location"
+                  value={formData.drop_location}
+                  onChange={handleNewDropChange}
+                  required
               />
               <ul className="autocomplete-list">
-                {dropSuggestions.map((suggestion) => (
+                {dropSuggestions.map((suggestion,index) => (
                   <li
-                    key={suggestion.place_id}
+                    key={index}
                     className="autocomplete-item"
-                    onClick={() => handleLocationSelect(suggestion.description, "drop_location")}
+                    onClick={() => handleLocationSelect(suggestion, "drop_location")}
                   >
-                    {suggestion.description}
+                    {suggestion}
                   </li>
                 ))}
               </ul>
