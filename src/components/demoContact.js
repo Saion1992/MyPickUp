@@ -33,12 +33,12 @@ function OfficeForm0() {
   const fetchAutocompleteSuggestions = (query, setSuggestions) => {
     if (query) {
       autocompleteService.getPlacePredictions(
-        { input: query },
-        (results, status) => {
-          if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-            setSuggestions(results);
+          { input: query },
+          (results, status) => {
+            if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+              setSuggestions(results);
+            }
           }
-        }
       );
     } else {
       setSuggestions([]);
@@ -86,7 +86,7 @@ function OfficeForm0() {
   };
 
   const handleToggle = (value) => {
-  
+
     setActiveOption(value);
 
   };
@@ -120,284 +120,225 @@ function OfficeForm0() {
       };
       // Use the submitFormData function to make the API request
       submitOfficeFormData(requestData);
-     // handleShow(); // Show the modal on form submission
+      // handleShow(); // Show the modal on form submission
     } catch (error) {
       // Handle errors, e.g., show an error message to the user
       console.error('Error submitting form:', error);
       // You can set an error state and display an error message to the user
-      
+
     }
   };
-  let handleNewPickupChange = (e) => {
-    const query = e.target.value;
-    setFormData({ ...formData, pickup_location: query });
-    const url = `https://api.tomtom.com/search/2/search/${query}.json?countrySet=IN&extendedPostalCodesFor=Addr%2CGeo%2CPAD%2CPOI%2CStr%2CXStr&minFuzzyLevel=1&maxFuzzyLevel=2&idxSet=Addr%2CGeo%2CPAD%2CPOI%2CStr%2CXStr&view=IN&relatedPois=off&key=LAXUKuTXwnsgGanpfAbGieVR29oAHvvR`;
-
-    fetch(url)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          return response.json();
-        })
-        .then(data => {
-          // Set the pickupSuggestions state with the results from the API response
-          const streetNames = data.results.map(result => {
-            console.log(result.address.freeformAddress);
-            if (result.poi && result.poi.name){
-              console.log('poi found')
-              return (result.poi.name + ", " + result.address.freeformAddress)
-            }
-          else {
-              console.log('poi not found')
-              return result.address.freeformAddress;
-            }
-          });
-          // console.log(streetNames);
-          setPickupSuggestions(streetNames);
-        })
-        .catch(error => {
-          console.error('There has been a problem with your fetch operation:', error);
-        });
-  }
-  let handleNewDropChange = (e) => {
-    const query = e.target.value;
-    setFormData({ ...formData, drop_location: query });
-    const url = `https://api.tomtom.com/search/2/search/${query}.json?countrySet=IN&extendedPostalCodesFor=Addr%2CGeo%2CPAD%2CPOI%2CStr%2CXStr&minFuzzyLevel=1&maxFuzzyLevel=2&idxSet=Addr%2CGeo%2CPAD%2CPOI%2CStr%2CXStr&view=IN&relatedPois=off&key=LAXUKuTXwnsgGanpfAbGieVR29oAHvvR`;
-
-    fetch(url)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          return response.json();
-        })
-        .then(data => {
-          const streetNames = data.results.map(result => {
-            if (result.poi && result.poi.name){
-              return (result.poi.name + ", " + result.address.freeformAddress)
-            }
-            else {
-              return result.address.freeformAddress;
-            }
-          });
-          setDropSuggestions(streetNames);
-        })
-        .catch(error => {
-          console.error('There has been a problem with your fetch operation:', error);
-        });
-  }
 
   return (
-    <div className="form-container">
-      <Form onSubmit={handleSubmit}>
-        <Row className="p-3 ">
-          <Col>
-            {" "}
-            <Form.Group>
-              <Form.Label>Name:</Form.Label>
-              <Form.Control
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleInputChange}
-                required
-              />
-            </Form.Group>
-          </Col>
-          <Col>
-            {" "}
-            <Form.Group>
-              <Form.Label>Mob:</Form.Label>
-              <Form.Control
-                type="tel"
-                name="mobile"
-                value={formData.mobile}
-                onChange={handleInputChange}
-                required
-              />
-            </Form.Group>
-          </Col>
-          <Col>
-            {" "}
-            <Form.Group>
-              <Form.Label>Gender:</Form.Label>
-              <Form.Control
-                as="select"
-                name="gender"
-                value={formData.gender}
-                onChange={handleInputChange}
-                required
-              >
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Other">Other</option>
-              </Form.Control>
-            </Form.Group>
-          </Col>
-        </Row>
-        <Row className="p-3 ">
-          <Col>
-            <Form.Group>
-              <Form.Label>Pickup Location:
-              </Form.Label>
-              <Form.Control
-                  type="text"
-                  name="pickup_location"
-                  value={formData.pickup_location}
-                  onChange={handleNewPickupChange}
-                  required
-              />
-              <ul className="autocomplete-list">
-                {pickupSuggestions.map((suggestion, index) => (
-                    <li
-                        key={index}
-                        className="autocomplete-item"
-                        onClick={() => handleLocationSelect(suggestion, "pickup_location")}
-                    >
-                      {suggestion}
-                    </li>
-                ))}
-              </ul>
-            </Form.Group>
-          </Col>
-          <Col>
-            <Form.Group>
-              <Form.Label>Drop Location:</Form.Label>
-              <Form.Control
-                  type="text"
-                  name="drop_location"
-                  value={formData.drop_location}
-                  onChange={handleNewDropChange}
-                  required
-              />
-              <ul className="autocomplete-list">
-                {dropSuggestions.map((suggestion,index) => (
-                  <li
-                    key={index}
-                    className="autocomplete-item"
-                    onClick={() => handleLocationSelect(suggestion, "drop_location")}
-                  >
-                    {suggestion}
-                  </li>
-                ))}
-              </ul>
-            </Form.Group>
-          </Col>
-        </Row>
-        <Row >
-          <p className="fs-7" style={{ fontWeight: "200" ,color:"grey"}}>
-            <center>(Please mention exact addresses. For e.g. Society Name, Nearest location name, IT park name, etc.)</center>
-          </p>
-        </Row>
-        <Row className="p-3 ">
-          {" "}
-          <Form.Group>
-            <Form.Label>Days:</Form.Label>
-            <div className="days-checkboxes">
-              {Object.keys(formData.days).map((day) => (
-                <Form.Check
-                  key={day}
-                  type="checkbox"
-                  label={day}
-                  name={day}
-                  checked={formData.days[day]}
-                  onChange={handleCheckboxChange}
+      <div className="form-container">
+        <Form onSubmit={handleSubmit}>
+          <Row className="p-3 ">
+            <Col>
+              {" "}
+              <Form.Group>
+                <Form.Label>Name:</Form.Label>
+                <Form.Control
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    required
                 />
-              ))}
-            </div>
-          </Form.Group>
-        </Row>
-
-        <Row className="p-3 ">
-          <Col>
-            <Form.Group>
-              <Form.Label>Pickup Time:</Form.Label>
-              <Form.Control
-                type="time"
-                name="pickup_time"
-                value={formData.pickup_time}
-                onChange={handleInputChange}
-                required
-              />
-            </Form.Group>
-          </Col>
-          <Col>
+              </Form.Group>
+            </Col>
+            <Col>
+              {" "}
+              <Form.Group>
+                <Form.Label>Mob:</Form.Label>
+                <Form.Control
+                    type="tel"
+                    name="mobile"
+                    value={formData.mobile}
+                    onChange={handleInputChange}
+                    required
+                />
+              </Form.Group>
+            </Col>
+            <Col>
+              {" "}
+              <Form.Group>
+                <Form.Label>Gender:</Form.Label>
+                <Form.Control
+                    as="select"
+                    name="gender"
+                    value={formData.gender}
+                    onChange={handleInputChange}
+                    required
+                >
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </Form.Control>
+              </Form.Group>
+            </Col>
+          </Row>
+          <Row className="p-3 ">
+            <Col>
+              <Form.Group>
+                <Form.Label>Pickup Location:
+                </Form.Label>
+                <Form.Control
+                    type="text"
+                    name="pickup_location"
+                    value={formData.pickup_location}
+                    onChange={handlePickupChange}
+                    required
+                />
+                <ul className="autocomplete-list">
+                  {pickupSuggestions.map((suggestion) => (
+                      <li
+                          key={suggestion.place_id}
+                          className="autocomplete-item"
+                          onClick={() => handleLocationSelect(suggestion.description, "pickup_location")}
+                      >
+                        {suggestion.description}
+                      </li>
+                  ))}
+                </ul>
+              </Form.Group>
+            </Col>
+            <Col>
+              <Form.Group>
+                <Form.Label>Drop Location:</Form.Label>
+                <Form.Control
+                    type="text"
+                    name="drop_location"
+                    value={formData.drop_location}
+                    onChange={handleDropChange}
+                    required
+                />
+                <ul className="autocomplete-list">
+                  {dropSuggestions.map((suggestion) => (
+                      <li
+                          key={suggestion.place_id}
+                          className="autocomplete-item"
+                          onClick={() => handleLocationSelect(suggestion.description, "drop_location")}
+                      >
+                        {suggestion.description}
+                      </li>
+                  ))}
+                </ul>
+              </Form.Group>
+            </Col>
+          </Row>
+          <Row >
+            <p className="fs-7" style={{ fontWeight: "200" ,color:"grey"}}>
+              <center>(Please mention exact addresses. For e.g. Society Name, Nearest location name, IT park name, etc.)</center>
+            </p>
+          </Row>
+          <Row className="p-3 ">
             {" "}
             <Form.Group>
-              <Form.Label>Return Time:</Form.Label>
-              <Form.Control
-                type="time"
-                name="return_time"
-                value={formData.return_time}
-                onChange={handleInputChange}
-                required
-                disabled={activeOption === "no"}
-              />
+              <Form.Label>Days:</Form.Label>
+              <div className="days-checkboxes">
+                {Object.keys(formData.days).map((day) => (
+                    <Form.Check
+                        key={day}
+                        type="checkbox"
+                        label={day}
+                        name={day}
+                        checked={formData.days[day]}
+                        onChange={handleCheckboxChange}
+                    />
+                ))}
+              </div>
             </Form.Group>
-          </Col>
-        </Row>
-        <Row className="p-3 ">
-          <Col>
-            {" "}
-            <p>Do you want a return?</p>
-          </Col>
-          <Col>
-            <div className="d-flex">
-              <button
-                className={`toggle-button ${activeOption === "yes" ? "active" : ""
-                  }`}
-                style={{
-                  backgroundColor: activeOption === "yes" ? "#084aa6" : "",
-                }}
-                onClick={() => handleToggle("yes")}
-              >
-                Yes
-              </button>
-              <button
-                className={`toggle-button ${activeOption === "no" ? "active" : ""
-                  }`}
-                style={{
-                  backgroundColor: activeOption === "no" ? "#084aa6" : "",
-                }}
-                onClick={() => handleToggle("no")}
-              >
-                No
-              </button>
-            </div>
-          </Col>
-        </Row>
+          </Row>
 
-        <Button
-          className="p-2 my-2 "
-          style={{ backgroundColor: "#084aa6" }}
-          type="submit"
-          onClick={handleShow}
-   >
-          Submit
-        </Button>
-      </Form>
+          <Row className="p-3 ">
+            <Col>
+              <Form.Group>
+                <Form.Label>Pickup Time:</Form.Label>
+                <Form.Control
+                    type="time"
+                    name="pickup_time"
+                    value={formData.pickup_time}
+                    onChange={handleInputChange}
+                    required
+                />
+              </Form.Group>
+            </Col>
+            <Col>
+              {" "}
+              <Form.Group>
+                <Form.Label>Return Time:</Form.Label>
+                <Form.Control
+                    type="time"
+                    name="return_time"
+                    value={formData.return_time}
+                    onChange={handleInputChange}
+                    required
+                    disabled={activeOption === "no"}
+                />
+              </Form.Group>
+            </Col>
+          </Row>
+          <Row className="p-3 ">
+            <Col>
+              {" "}
+              <p>Do you want a return?</p>
+            </Col>
+            <Col>
+              <div className="d-flex">
+                <button
+                    className={`toggle-button ${activeOption === "yes" ? "active" : ""
+                    }`}
+                    style={{
+                      backgroundColor: activeOption === "yes" ? "#084aa6" : "",
+                    }}
+                    onClick={() => handleToggle("yes")}
+                >
+                  Yes
+                </button>
+                <button
+                    className={`toggle-button ${activeOption === "no" ? "active" : ""
+                    }`}
+                    style={{
+                      backgroundColor: activeOption === "no" ? "#084aa6" : "",
+                    }}
+                    onClick={() => handleToggle("no")}
+                >
+                  No
+                </button>
+              </div>
+            </Col>
+          </Row>
 
-      <Modal show={showModal} onHide={closeModal}>
-        {/* <Modal.Header>
+          <Button
+              className="p-2 my-2 "
+              style={{ backgroundColor: "#084aa6" }}
+              type="submit"
+              onClick={handleShow}
+          >
+            Submit
+          </Button>
+        </Form>
+
+        <Modal show={showModal} onHide={closeModal}>
+          {/* <Modal.Header>
           <Modal.Title>Form Submitted</Modal.Title>
         </Modal.Header> */}
-        <Modal.Body closeButton>
-          <h5 className="p-4" style={{ color: "navy" }}>
-            Your response is recorded! Our customer support team will reach out
-            to you within 6 business hours.
-            <br />
-            <br />
-            Thanks for connecting with MyPickup. Happy Commuting!
-          </h5>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={closeModal} style={{ backgroundColor: "#084aa6" }}>
-            Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </div>
+          <Modal.Body closeButton>
+            <h5 className="p-4" style={{ color: "navy" }}>
+              Your response is recorded! Our customer support team will reach out
+              to you within 6 business hours.
+              <br />
+              <br />
+              Thanks for connecting with MyPickup. Happy Commuting!
+            </h5>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={closeModal} style={{ backgroundColor: "#084aa6" }}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
   );
 }
 
