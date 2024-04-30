@@ -189,7 +189,9 @@ function Banner2() {
                             Hourly Auto Rentals
                         </Button2>
                         <Button2
+
                             variant="contained"
+                            disabled="true"
                             onClick={() => handleImageClick(3)}
                             sx={{
                                 width: 250,
