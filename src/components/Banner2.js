@@ -62,7 +62,7 @@ function Banner2() {
             ride_Date: rideDate,
         };
 
-        axios.post('https://cabrental.onrender.com/api/autoRentalBooking/', data, {
+        axios.post('https://cabrental-yb2k.onrender.com/api/autoRentalBooking/', data, {
             headers: {
                 'Content-Type': 'application/json',
             },
