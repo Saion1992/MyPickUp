@@ -135,6 +135,8 @@ function Banner2() {
                 setDropLocation(""); // Reset drop_location
                 setPickupTime("");
                 setRideDate("");
+                setDropSearch("");
+                setPickupSearch("");
             })
             .catch((error) => {
                 console.error('Error:', error);
@@ -181,6 +183,8 @@ function Banner2() {
                 setPackagePrice("");
                 setPackagePlan("");
                 setRideDate("");
+                setDropSearch("");
+                setPickupSearch("");
             })
             .catch((error) => {
                 console.error('Error:', error);
