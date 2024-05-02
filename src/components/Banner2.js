@@ -47,7 +47,33 @@ function Banner2() {
     const [packagePrice, setPackagePrice] = useState("");
     const [packagePlan, setPackagePlan] = useState("");
     const [rideDate, setRideDate] = useState("");
+    const [pickupSuggestions, setPickupSuggestions] = useState([]);
+    const [pickupSearch, setPickupSearch] = useState("");
+    const autocompleteService = new window.google.maps.places.AutocompleteService();
 
+    const fetchAutocompleteSuggestions = (query, setSuggestions) => {
+        if (query) {
+            autocompleteService.getPlacePredictions(
+                { input: query },
+                (results, status) => {
+                    if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+                        setSuggestions(results);
+                    }
+                }
+            );
+        } else {
+            setSuggestions([]);
+        }
+    };
+    const handlePickupSearch = (e) => {
+        setPickupSearch(e.target.value);
+        fetchAutocompleteSuggestions(e.target.value, setPickupSuggestions);
+    };
+
+    const handleLocationSelect = (location) => {
+        setPickupLocation(location);
+        setPickupSuggestions([]);
+    };
     const handleFormSubmit = (event) => {
         event.preventDefault();
 
@@ -246,7 +272,18 @@ function Banner2() {
                         <Col>
                             <Form.Group className="mb-3">
                                 <Form.Label>Pickup Location</Form.Label>
-                                <Form.Control type="text" value={pickupLocation} onChange={e => setPickupLocation(e.target.value)} required />
+                                <Form.Control type="text" value={pickupSearch} onChange={handlePickupSearch} required />
+                                <ul className="autocomplete-list">
+                                    {pickupSuggestions.map((suggestion) => (
+                                        <li
+                                            key={suggestion.place_id}
+                                            className="autocomplete-item"
+                                            onClick={() => handleLocationSelect(suggestion.description)}
+                                        >
+                                            {suggestion.description}
+                                        </li>
+                                    ))}
+                                </ul>
                             </Form.Group>
                         </Col>
                         <Col>
