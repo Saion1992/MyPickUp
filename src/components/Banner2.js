@@ -137,6 +137,7 @@ function Banner2() {
                 setRideDate("");
                 setDropSearch("");
                 setPickupSearch("");
+
             })
             .catch((error) => {
                 console.error('Error:', error);
