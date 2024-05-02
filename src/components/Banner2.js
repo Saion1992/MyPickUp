@@ -4,12 +4,20 @@ import {Button as Button2, Dialog, DialogTitle, DialogContent, Box } from "@mui/
 import "./Banner.css";
 import MyVerticallyCenteredModal from "./Modals";
 import axios from "axios";
+import Swal from 'sweetalert2';
 
 function Banner2() {
     const [showImageDialog, setShowImageDialog] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [showOption2Dialog, setShowOption2Dialog] = useState(false); // New state variable
+    const [showAirportCabsDialog, setShowAirportCabsDialog] = useState(false);
+    const handleAirportCabsClick = () => {
+        setShowAirportCabsDialog(true); // Open the new dialog when "Airport Cabs" is clicked
+    };
 
+    const handleCloseAirportCabsDialog = () => {
+        setShowAirportCabsDialog(false); // Function to close the new dialog
+    };
     const handleOpenImageDialog = () => {
         setShowImageDialog(true);
     };
@@ -24,7 +32,11 @@ function Banner2() {
         if (option === 2) {
             console.log("option2clicked")
             setShowOption2Dialog(true); // Open the new dialog when option 2 is clicked
-        } else {
+        }
+        else if (option === 3) {
+            handleAirportCabsClick();
+        }
+        else {
             setShowModal(true);
         }
     };
@@ -44,11 +56,17 @@ function Banner2() {
     const [gender, setGender] = useState("");
     const [pickupLocation, setPickupLocation] = useState("");
     const [pickupTime, setPickupTime] = useState("");
+    const [dropLocation, setDropLocation] = useState("");
     const [packagePrice, setPackagePrice] = useState("");
     const [packagePlan, setPackagePlan] = useState("");
     const [rideDate, setRideDate] = useState("");
     const [pickupSuggestions, setPickupSuggestions] = useState([]);
     const [pickupSearch, setPickupSearch] = useState("");
+    const [dropSuggestions, setDropSuggestions] = useState([]);
+    const [dropSearch, setDropSearch] = useState("");
+
+
+
     const autocompleteService = new window.google.maps.places.AutocompleteService();
 
     const fetchAutocompleteSuggestions = (query, setSuggestions) => {
@@ -69,10 +87,65 @@ function Banner2() {
         setPickupSearch(e.target.value);
         fetchAutocompleteSuggestions(e.target.value, setPickupSuggestions);
     };
+    const handleDropSearch = (e) => {
+        setDropSearch(e.target.value);
+        fetchAutocompleteSuggestions(e.target.value, setDropSuggestions);
+    };
 
-    const handleLocationSelect = (location) => {
-        setPickupLocation(location);
-        setPickupSuggestions([]);
+    const handleLocationSelect = (location, locationType) => {
+        if (locationType === "pickup_location") {
+            setPickupLocation(location);
+            setPickupSearch(location); // Update the pickupSearch state
+            setPickupSuggestions([]);
+        } else if (locationType === "drop_location") {
+            setDropLocation(location);
+            setDropSearch(location); // Update the dropSearch state
+            setDropSuggestions([]);
+        }
+    };
+    const handleAirportFormSubmit = (event) => {
+        event.preventDefault();
+
+        const data = {
+            name,
+            mobile,
+            gender,
+            pickup_location: pickupLocation,
+            drop_location: dropLocation, // Add drop_location
+            pickup_time: pickupTime,
+            ride_Date: rideDate,
+        };
+
+        axios.post('https://cabrental-yb2k.onrender.com/api/airportCabsBooking/', data, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(response => {
+                Swal.fire( // Add SweetAlert2 notification here
+                    'Success!',
+                    'Your request is recorded. Our team will get back to you in the next 1 hour. Have a great day ahead :)',
+                    'success'
+                );
+                console.log('Success:', response.data);
+                setName("");
+                setMobile("");
+                setGender("");
+                setPickupLocation("");
+                setDropLocation(""); // Reset drop_location
+                setPickupTime("");
+                setRideDate("");
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                Swal.fire( // Add SweetAlert2 notification here
+                    'Error Occurred!',
+                    'An Error Occurred. Please try again',
+                    'error'
+                );
+            });
+
+        handleCloseAirportCabsDialog();
     };
     const handleFormSubmit = (event) => {
         event.preventDefault();
@@ -94,6 +167,11 @@ function Banner2() {
             },
         })
             .then(response => {
+                Swal.fire( // Add SweetAlert2 notification here
+                    'Success!',
+                    'Your request is recorded. Our team will get back to you in the next 1 hour. Have a great day ahead :)',
+                    'success'
+                );
                 console.log('Success:', response.data);
                 setName("");
                 setMobile("");
@@ -106,6 +184,11 @@ function Banner2() {
             })
             .catch((error) => {
                 console.error('Error:', error);
+                Swal.fire( // Add SweetAlert2 notification here
+                    'Error Occurred!',
+                    'An Error Occurred. Please try again',
+                    'error'
+                );
             });
 
         handleCloseOption2Dialog();
@@ -217,7 +300,6 @@ function Banner2() {
                         <Button2
 
                             variant="contained"
-                            disabled="true"
                             onClick={() => handleImageClick(3)}
                             sx={{
                                 width: 250,
@@ -280,7 +362,7 @@ function Banner2() {
                                         <li
                                             key={suggestion.place_id}
                                             className="autocomplete-item"
-                                            onClick={() => handleLocationSelect(suggestion.description)}
+                                            onClick={() => handleLocationSelect(suggestion.description, "pickup_location")}
                                         >
                                             {suggestion.description}
                                         </li>
@@ -327,6 +409,94 @@ function Banner2() {
                 </Form>
             </DialogContent>
         </Dialog>
+            <Dialog
+                sx={{ width: '100vw' }} open={showAirportCabsDialog} onClose={handleCloseAirportCabsDialog}>
+                <DialogTitle>Airport Cabs Form</DialogTitle>
+                <DialogContent>
+                    <Form onSubmit={handleAirportFormSubmit}>
+                        <Row>
+                            <Col>
+                                <Form.Group className="mb-3">
+                                    <Form.Label>Name</Form.Label>
+                                    <Form.Control type="text" value={name} onChange={e => setName(e.target.value)} required />
+                                </Form.Group>
+                            </Col>
+                            <Col>
+                                <Form.Group className="mb-3">
+                                    <Form.Label>Mobile</Form.Label>
+                                    <Form.Control type="text" value={mobile} onChange={e => setMobile(e.target.value)} required />
+                                </Form.Group>
+                            </Col>
+                            <Col>
+                                <Form.Group className="mb-3">
+                                    <Form.Label>Gender</Form.Label>
+                                    <Form.Control as="select" value={gender} onChange={e => setGender(e.target.value)} required>
+                                        <option value="">Select...</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                    </Form.Control>
+                                </Form.Group>
+                            </Col>
+                        </Row>
+
+
+
+                        <Row>
+                            <Col>
+                                <Form.Group className="mb-3">
+                                    <Form.Label>Pickup Location</Form.Label>
+                                    <Form.Control type="text" value={pickupSearch} onChange={handlePickupSearch} required />
+                                    <ul className="autocomplete-list">
+                                        {pickupSuggestions.map((suggestion) => (
+                                            <li
+                                                key={suggestion.place_id}
+                                                className="autocomplete-item"
+                                                onClick={() => handleLocationSelect(suggestion.description, "pickup_location")}
+                                            >
+                                                {suggestion.description}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </Form.Group>
+                            </Col>
+                            <Col>
+                                <Form.Group className="mb-3">
+                                    <Form.Label>Drop Location</Form.Label>
+                                    <Form.Control type="text" value={dropSearch} onChange={handleDropSearch} required />
+                                    <ul className="autocomplete-list">
+                                        {dropSuggestions.map((suggestion) => (
+                                            <li
+                                                key={suggestion.place_id}
+                                                className="autocomplete-item"
+                                                onClick={() => handleLocationSelect(suggestion.description, "drop_location")}
+                                            >
+                                                {suggestion.description}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </Form.Group>
+                            </Col>
+                            <Col>
+                                <Form.Group className="mb-3">
+                                    <Form.Label>Pickup Time</Form.Label>
+                                    <Form.Control type="time" value={pickupTime} onChange={e => setPickupTime(e.target.value+":00")} required />
+                                </Form.Group>
+                            </Col>
+                        </Row>
+
+
+
+                        <Form.Group className="mb-3">
+                            <Form.Label>Ride Date</Form.Label>
+                            <Form.Control type="date" value={rideDate} onChange={e => setRideDate(e.target.value)} required />
+                        </Form.Group>
+
+                        <Button variant="primary" type="submit">
+                            Submit
+                        </Button>
+                    </Form>
+                </DialogContent>
+            </Dialog>
 
             <MyVerticallyCenteredModal
                 show={showModal}
