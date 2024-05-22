@@ -105,7 +105,10 @@ function Banner2() {
     };
     const handleAirportFormSubmit = (event) => {
         event.preventDefault();
-
+        if (mobile.length !== 10) {
+            alert("Mobile number must be 10 digits");
+            return;
+        }
         const data = {
             name,
             mobile,
@@ -153,6 +156,10 @@ function Banner2() {
     const handleFormSubmit = (event) => {
         event.preventDefault();
 
+        if (mobile.length !== 10) {
+            alert("Mobile number must be 10 digits");
+            return;
+        }
         const data = {
             name,
             mobile,
@@ -340,7 +347,7 @@ function Banner2() {
                         <Col>
                             <Form.Group className="mb-3">
                                 <Form.Label>Mobile</Form.Label>
-                                <Form.Control type="text" value={mobile} onChange={e => setMobile(e.target.value)} required />
+                                <Form.Control maxLength={10} type="text" value={mobile} onChange={e => setMobile(e.target.value)} required />
                             </Form.Group>
                         </Col>
                         <Col>
@@ -429,7 +436,7 @@ function Banner2() {
                             <Col>
                                 <Form.Group className="mb-3">
                                     <Form.Label>Mobile</Form.Label>
-                                    <Form.Control type="text" value={mobile} onChange={e => setMobile(e.target.value)} required />
+                                    <Form.Control maxLength={10} type="text" value={mobile} onChange={e => setMobile(e.target.value)} required />
                                 </Form.Group>
                             </Col>
                             <Col>
