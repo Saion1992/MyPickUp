@@ -100,6 +100,11 @@ function OfficeForm0() {
   };
 
   const handleSubmit = (e) => {
+
+    if (formData.mobile.length < 10) {
+      alert("Mobile number must be 10 digits");
+      return;
+    }
     e.preventDefault();
     try {
       if (submitted) {
@@ -155,6 +160,7 @@ function OfficeForm0() {
                     name="mobile"
                     value={formData.mobile}
                     onChange={handleInputChange}
+                    maxLength={10}
                     required
                 />
               </Form.Group>
