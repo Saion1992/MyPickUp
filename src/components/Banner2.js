@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
-import {Button as Button2, Dialog, DialogTitle, DialogContent, Box } from "@mui/material";
+import { Button as Button2, Dialog, DialogTitle, DialogContent, Box } from "@mui/material";
 import "./Banner.css";
 import MyVerticallyCenteredModal from "./Modals";
 import axios from "axios";
@@ -11,6 +11,25 @@ function Banner2() {
     const [showModal, setShowModal] = useState(false);
     const [showOption2Dialog, setShowOption2Dialog] = useState(false); // New state variable
     const [showAirportCabsDialog, setShowAirportCabsDialog] = useState(false);
+    const [autocompleteService, setAutocompleteService] = useState(null);
+
+    useEffect(() => {
+        const initializeAutocompleteService = () => {
+            if (window.google && window.google.maps && window.google.maps.places) {
+                setAutocompleteService(new window.google.maps.places.AutocompleteService());
+            } else {
+                console.error('Google Maps JavaScript API not loaded');
+            }
+        };
+
+        if (window.google && window.google.maps && window.google.maps.places) {
+            initializeAutocompleteService();
+        } else {
+            window.addEventListener('load', initializeAutocompleteService);
+            return () => window.removeEventListener('load', initializeAutocompleteService);
+        }
+    }, []);
+
     const handleAirportCabsClick = () => {
         setShowAirportCabsDialog(true); // Open the new dialog when "Airport Cabs" is clicked
     };
@@ -18,6 +37,7 @@ function Banner2() {
     const handleCloseAirportCabsDialog = () => {
         setShowAirportCabsDialog(false); // Function to close the new dialog
     };
+
     const handleOpenImageDialog = () => {
         setShowImageDialog(true);
     };
@@ -49,8 +69,6 @@ function Banner2() {
         setShowOption2Dialog(false); // Function to close the new dialog
     };
 
-
-
     const [name, setName] = useState("");
     const [mobile, setMobile] = useState("");
     const [gender, setGender] = useState("");
@@ -65,12 +83,8 @@ function Banner2() {
     const [dropSuggestions, setDropSuggestions] = useState([]);
     const [dropSearch, setDropSearch] = useState("");
 
-
-
-    const autocompleteService = new window.google.maps.places.AutocompleteService();
-
     const fetchAutocompleteSuggestions = (query, setSuggestions) => {
-        if (query) {
+        if (query && autocompleteService) {
             autocompleteService.getPlacePredictions(
                 { input: query },
                 (results, status) => {
@@ -83,10 +97,12 @@ function Banner2() {
             setSuggestions([]);
         }
     };
+
     const handlePickupSearch = (e) => {
         setPickupSearch(e.target.value);
         fetchAutocompleteSuggestions(e.target.value, setPickupSuggestions);
     };
+
     const handleDropSearch = (e) => {
         setDropSearch(e.target.value);
         fetchAutocompleteSuggestions(e.target.value, setDropSuggestions);
@@ -103,6 +119,7 @@ function Banner2() {
             setDropSuggestions([]);
         }
     };
+
     const handleAirportFormSubmit = (event) => {
         event.preventDefault();
         if (mobile.length !== 10) {
@@ -153,6 +170,7 @@ function Banner2() {
 
         handleCloseAirportCabsDialog();
     };
+
     const handleFormSubmit = (event) => {
         event.preventDefault();
 
@@ -222,7 +240,6 @@ function Banner2() {
                 setPackagePrice("");
         }
     };
-
 
     return (
         <Container>
