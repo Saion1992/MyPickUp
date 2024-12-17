@@ -152,3 +152,20 @@ opacity: 1 !important;} */
   width: 100%;
   height: 100%; /* Adjust as needed */
 }
+
+.store-buttons {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  gap: 10px; /* Spacing between buttons */
+  /* align-items: center; Center-align the images */
+}
+
+.app-image {
+  width: 100%; /* Allow images to take full width of the container */
+  max-width: 180px; /* Limit the maximum width */
+  height: auto; /* Maintain aspect ratio */
+  object-fit: contain; /* Ensure images don't get distorted */
+  margin-left: 13px;
+}
+
+

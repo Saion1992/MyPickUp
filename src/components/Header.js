@@ -116,7 +116,7 @@ function Header() {
                     Our services
                   </Link>
 
-                  <Link
+                  {/* <Link
                     to="faq"
                     style={{
                       fontSize: "18px",
@@ -129,8 +129,8 @@ function Header() {
                     onClick={() => scrollToSection("faq")}
                   >
                     FAQ
-                  </Link>
-                  <Link
+                  </Link> */}
+                  {/* <Link
                     style={{
                       fontSize: "18px",
                       marginRight: "17px",
@@ -142,7 +142,7 @@ function Header() {
                     onClick={handleOpenImageDialog}
                   >
                     Book a Slot
-                  </Link>
+                  </Link> */}
 
                   <Dialog
                     open={showImageDialog}
