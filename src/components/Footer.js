@@ -114,13 +114,13 @@ const Footer = () => {
                 </li> */}
                 <li>
                   {" "}
-                  <Link
+                  {/* <Link
                     className="service"
                     // onClick={() => scrollToSection("faq")}
                     onClick={handleSubmit}
                   >
                     Book a Slot
-                  </Link>
+                  </Link> */}
                   <MyVerticallyCenteredModal
                     show={showModal}
                     handleClose={handleCloseModal}
