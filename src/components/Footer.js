@@ -181,7 +181,7 @@ const Footer = () => {
                 </li>
                 <li>
                   <a
-                    href="http://wa.me/918867712288"
+                    href="http://wa.me/916364063119"
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{ fontSize: "20px", color: "white" }}
@@ -203,7 +203,7 @@ const Footer = () => {
 
               <ul>
                 <a
-                  href="tel:+9188677122880"
+                  href="tel:+916364063119"
                   target="blank"
                   rel="noopener noreferrer"
                   style={{
@@ -227,7 +227,7 @@ const Footer = () => {
                   }}
                   onClick={() => scrollToSection("features")}
                 >
-                  +91 8867712288
+                  +91 6364063119
                 </Link>
               </ul>
             </Col>
