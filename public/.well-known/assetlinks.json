@@ -1,0 +1,11 @@
+[
+    {
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "in.mypickup.mypickup",
+        "sha256_cert_fingerprints":
+          ["78:CE:F0:9B:BD:88:28:92:9F:D3:7D:4F:F6:5E:85:AD:B0:E5:3B:2D:D2:F5:67:FE:28:7F:27:4B:5F:48:C7:3B"]
+      }
+    }
+  ]
